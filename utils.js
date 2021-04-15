@@ -148,7 +148,7 @@ BUILD
     })
     console.log("build_params:",build_params);
     const BUILD_URL = 'https://api.bitrise.io/v0.1/apps/' + appSlug + "/builds/";
-    fetch(BUILD_URL, {
+    let payload = {
       method: 'post',
       body:    JSON.stringify({
         "build_params": build_params,
@@ -160,9 +160,11 @@ BUILD
         'accept': 'application/json',
         'Authorization': API_KEY
       }
-    })
+    };
+    console.log('Payload:', payload)
+    fetch(BUILD_URL, payload)
     .then(res => {
-      console.log('Start Build Response: ', res);
+      console.log('Start Build Response: ', res.status);
       if(res.status == 200){
         console.log('Rebuilt Successfully')
       }else{
