@@ -150,12 +150,12 @@ BUILD
     const BUILD_URL = 'https://api.bitrise.io/v0.1/apps/' + appSlug + "/builds/";
     let payload = {
       method: 'post',
-      body:    JSON.stringify({
+      body:    {
         "build_params": build_params,
         "hook_info": {
           "type": "abort_rebuild_bot"
         }
-      }),
+      },
       headers: {
         'accept': 'application/json',
         'Authorization': API_KEY
