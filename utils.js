@@ -91,7 +91,7 @@ BUILD
     "triggered_workflow": "string"
   }
   */
-  rebuild: (appSlug, build) => {
+  rebuild: (API_KEY, appSlug, build) => {
     if(build.abort_reason != ""){
       console.log("Abort Reason:", build.abort_reason);
     }
@@ -141,14 +141,14 @@ BUILD
           "type": "abort_rebuild_bot"
         }
       }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.getHeaders(API_KEY),
     })
     .then(res => {
-      console.log('Slack Response: ', res.status);
+      console.log('Start Build Response: ', res.status);
       if(res.status == 200){
-        console.log('Slack Message Sent Successfully')
+        console.log('Rebuilt Successfully')
       }else{
-        console.log('Slack Message Failed to Send')
+        console.log('Rebuild Failed')
       }
     })
     .catch((err) => {

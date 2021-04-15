@@ -47,7 +47,7 @@ app.post('/webhook', (req, res) => {
   apiUtils.getBuild(API_KEY, body.app_slug, body.build_slug, (build) => {
       console.log('Got Build:', build);
       console.log('Rebuilding...');
-      utils.rebuild(body.app_slug, build)
+      utils.rebuild(API_KEY, body.app_slug, build)
     });
   res.status(200).json({success:true});
 });
