@@ -153,7 +153,7 @@ BUILD
       body:    {
         "build_params": build_params,
         "hook_info": {
-          "type": "abort_rebuild_bot"
+          "type": "bitrise"
         }
       },
       headers: {
