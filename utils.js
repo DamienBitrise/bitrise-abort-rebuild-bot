@@ -162,7 +162,7 @@ BUILD
       }
     };
     console.log('Payload:', payload)
-    fetch(BUILD_URL, payload)
+    fetch(BUILD_URL, JSON.stringify(payload))
     .then(res => {
       console.log('Start Build Response: ', res.status);
       if(res.status == 200){
