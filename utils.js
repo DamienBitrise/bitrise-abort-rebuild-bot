@@ -119,13 +119,14 @@ BUILD
   }
 }
   */
-  rebuild: (API_KEY, appSlug, build) => {
-    build = build.data;
+  rebuild: (API_KEY, appSlug, buildData) => {
+    let build = buildData.data;
     console.log("Abort Reason:", build.abort_reason);
     if(build.abort_reason != "User Personal requested to abort this build."){
       console.log("Skipping Rebuild");
       return;
     }
+    console.log("Rebuilding Params:",build.original_build_params);
     const BUILD_URL = 'https://api.bitrise.io/v0.1/apps/' + appSlug + "/builds/";
     fetch(BUILD_URL, {
       method: 'post',
@@ -141,7 +142,7 @@ BUILD
       }
     })
     .then(res => {
-      console.log('Start Build Response: ', res.status);
+      console.log('Start Build Response: ', res);
       if(res.status == 200){
         console.log('Rebuilt Successfully')
       }else{
