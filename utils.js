@@ -90,53 +90,47 @@ BUILD
     },
     "triggered_workflow": "string"
   }
+
+  Got Build: {
+  data: {
+    triggered_at: '2021-04-15T00:49:16Z',
+    started_on_worker_at: '2021-04-15T00:49:17Z',
+    environment_prepare_finished_at: '2021-04-15T00:49:17Z',
+    finished_at: '2021-04-15T00:49:22Z',
+    slug: 'a851343a3121eadf',
+    status: 3,
+    status_text: 'aborted',
+    abort_reason: 'User Personal requested to abort this build.',
+    is_on_hold: false,
+    branch: 'master',
+    build_number: 45,
+    commit_hash: null,
+    commit_message: null,
+    tag: null,
+    triggered_workflow: 'primary',
+    triggered_by: 'manual-Personal',
+    machine_type_id: 'elite',
+    stack_identifier: 'osx-xcode-12.0.x',
+    original_build_params: { branch: 'master', workflow_id: 'primary' },
+    pull_request_id: 0,
+    pull_request_target_branch: null,
+    pull_request_view_url: null,
+    commit_view_url: null
+  }
+}
   */
   rebuild: (API_KEY, appSlug, build) => {
-    if(build.abort_reason != ""){
-      console.log("Abort Reason:", build.abort_reason);
+    build = build.data;
+    console.log("Abort Reason:", build.abort_reason);
+    if(build.abort_reason != "User Personal requested to abort this build."){
+      console.log("Skipping Rebuild");
+      return;
     }
     const BUILD_URL = 'https://api.bitrise.io/v0.1/apps/' + appSlug + "/builds/";
     fetch(BUILD_URL, {
       method: 'post',
       body:    JSON.stringify({
-        "build_params": {
-          "branch": "string",
-          "branch_dest": "string",
-          "branch_dest_repo_owner": "string",
-          "branch_repo_owner": "string",
-          "build_request_slug": "string",
-          "commit_hash": "string",
-          "commit_message": "string",
-          "commit_paths": [
-            {
-              "added": [
-                "string"
-              ],
-              "modified": [
-                "string"
-              ],
-              "removed": [
-                "string"
-              ]
-            }
-          ],
-          "diff_url": "string",
-          "environments": [
-            {
-              "is_expand": true,
-              "mapped_to": "string",
-              "value": "string"
-            }
-          ],
-          "pull_request_author": "string",
-          "pull_request_head_branch": "string",
-          "pull_request_id": {},
-          "pull_request_merge_branch": "string",
-          "pull_request_repository_url": "string",
-          "skip_git_status_report": true,
-          "tag": "string",
-          "workflow_id": "string"
-        },
+        "build_params": build.original_build_params,
         "hook_info": {
           "type": "abort_rebuild_bot"
         }
