@@ -150,19 +150,19 @@ BUILD
     const BUILD_URL = 'https://api.bitrise.io/v0.1/apps/' + appSlug + "/builds/";
     let payload = {
       method: 'post',
-      body:    {
+      body: JSON.stringify({
         "build_params": build_params,
         "hook_info": {
           "type": "bitrise"
         }
-      },
+      }),
       headers: {
         'accept': 'application/json',
         'Authorization': API_KEY
       }
     };
     console.log('Payload:', payload)
-    fetch(BUILD_URL, JSON.stringify(payload))
+    fetch(BUILD_URL, payload)
     .then(res => {
       console.log('Start Build Response: ', res.status);
       if(res.status == 200){
