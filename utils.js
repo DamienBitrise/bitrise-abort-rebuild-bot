@@ -141,7 +141,10 @@ BUILD
           "type": "abort_rebuild_bot"
         }
       }),
-      headers: this.getHeaders(API_KEY),
+      headers: {
+        'accept': 'application/json',
+        'Authorization': API_KEY
+      }
     })
     .then(res => {
       console.log('Start Build Response: ', res.status);
