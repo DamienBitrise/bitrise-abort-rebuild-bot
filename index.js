@@ -45,15 +45,11 @@ app.post('/webhook', (req, res) => {
 
   // console.log('Using Cache');
   apiUtils.getBuild(API_KEY, body.app_slug, body.build_slug, (build) => {
+      console.log('Got Build:', build);
       console.log('Rebuilding...');
-      utils.rebuild(body.app_slug, body)
+      utils.rebuild(body.app_slug, build)
     });
   res.status(200).json({success:true});
-});
-
-app.get('/stats', (req, res) => {
-  console.log('/stats');
-  res.json(cached_stats);
 });
 
 app.listen(3000, () => console.log('server started'));

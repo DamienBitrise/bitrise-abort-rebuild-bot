@@ -11,7 +11,90 @@ module.exports = {
           },
       }
   },
+
+  /*
+  WEBHOOK
+{
+  build_slug: '815697039aa6c07c',
+  build_number: 41,
+  app_slug: '305da28f92b6b419',
+  build_status: 3,
+  build_triggered_workflow: 'primary',
+  git: {
+    provider: 'github',
+    src_branch: 'master',
+    dst_branch: 'master',
+    pull_request_id: 0,
+    tag: null
+  }
+}
+
+BUILD
+{
+    "abort_reason": {
+      "string": "string",
+      "valid": true
+    },
+    "branch": {
+      "string": "string",
+      "valid": true
+    },
+    "build_number": 0,
+    "commit_hash": {
+      "string": "string",
+      "valid": true
+    },
+    "commit_message": {
+      "string": "string",
+      "valid": true
+    },
+    "commit_view_url": {
+      "string": "string",
+      "valid": true
+    },
+    "environment_prepare_finished_at": "string",
+    "finished_at": "string",
+    "is_on_hold": true,
+    "machine_type_id": {
+      "string": "string",
+      "valid": true
+    },
+    "original_build_params": [
+      0
+    ],
+    "pull_request_id": 0,
+    "pull_request_target_branch": {
+      "string": "string",
+      "valid": true
+    },
+    "pull_request_view_url": {
+      "string": "string",
+      "valid": true
+    },
+    "slug": "string",
+    "stack_identifier": {
+      "string": "string",
+      "valid": true
+    },
+    "started_on_worker_at": "string",
+    "status": 0,
+    "status_text": "string",
+    "tag": {
+      "string": "string",
+      "valid": true
+    },
+    "triggered_at": "string",
+    "triggered_by": {
+      "string": "string",
+      "valid": true
+    },
+    "triggered_workflow": "string"
+  }
+  */
   rebuild: (appSlug, build) => {
+    if(build.abort_reason != ""){
+      console.log("Abort Reason:", build.abort_reason);
+    }
     const BUILD_URL = 'https://api.bitrise.io/v0.1/apps/' + appSlug + "/builds/";
     fetch(BUILD_URL, {
       method: 'post',
